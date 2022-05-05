@@ -38,5 +38,5 @@ Temporary Items
 
 node_modules/
 node_modules/*
-kimchechallenge/node_modules/
-kimchechallenge/node_modules/*
+build/
+build/*
