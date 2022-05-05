@@ -2,6 +2,8 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
+import Countries from './Countries';
+
 export const GET_COUNTRIES = gql`
 query countries {
     countries {
@@ -16,130 +18,22 @@ query countries {
   `;
 
 // Componente que carga los paises
-const Countries = () => {
+const Data = () => {
   const { loading, error, data } = useQuery(GET_COUNTRIES);
   if (loading) {
     return <h1>Loading ...</h1>
   } else if (error) {
     return <h1>Error</h1>
   }
-  // Paso el resultado como props al componente Data para poder definir estados y manipular estados dependiendo de los filtros.
+  
+  // Caso especial de Antartica que no tiene idioma se asigna uno.
+  data.countries[8].languages[0] = {name: 'English'};
+  
+  // Paso el resultado como props al componente Data para poder 
+  // definir estados y manipular estados dependiendo de los filtros.
   return (
-    <Data countries={data.countries}/>
+    <Countries countries={data.countries}/>
   )
 }
 
-class Data extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleFilter = this.handleFilter.bind(this);
-    this.groupBy = this.groupBy.bind(this);
-    this.handleGroupByContinent = this.handleGroupByContinent.bind(this);
-    this.handleGroupByLanguage = this.handleGroupByLanguage.bind(this);
-
-    // Estado inicial del componente, paises a mostrar y Agrupar por defecto por continente.
-    this.state = {
-      countries: [],
-      groupBy: 'Continent',
-    }
-  }
-
-  // Filtra por nombre de pais introducido en el input
-  handleFilter(e) {
-    const unfilteredCountries = this.props.countries;
-
-    // Caso especial de Antartica que no tiene idioma se asigna uno.
-    unfilteredCountries[8].languages[0] = {name: 'English'};
-
-    const filter = e.currentTarget.value.toLowerCase();
-    if (filter) {
-      this.setState(() => ({
-        countries: unfilteredCountries.filter((pais) => {
-          // Coincidencia exacta desde el inicio
-          return pais.name.toLowerCase().match('^'+filter)
-          
-          //Coincidencia parcial en cualquier lugar del string, más flexible.
-          // Ejemplo: si venezuela apareciera como Republica Bolivariana de Venezuela.
-          // return pais.name.toLowerCase().indexOf(filter)>-1
-        })
-      }))
-    } else {
-      this.setState(()=>({countries:[]}));
-    }
-  }
-
-  // Dependiendo del atributo para agrupar en el estado creamos un array con los diferentes items ya sea de continente o de idioma desde los paises ya filtrados
-  groupBy() {
-    const countries = this.state.countries;
-    if (this.state.groupBy === 'Continent') {
-      return [...new Set(countries.map(country => country.continent.name))].sort(); 
-    } 
-    else if (this.state.groupBy === 'Language') {
-// Para agrupar por idiomas decidi usar solo el primero en la lista ya que hay paises que tienen varios idiomas
-      return [...new Set(countries.map(country => country.languages[0].name))].sort(); 
-    }
-  }
-// Cambia el atributo a agrupar ya sea a continente o idioma haciendo click
-  handleGroupByContinent() {
-    this.setState(() => ({groupBy:'Continent'}));
-    this.groupBy();
-  }
-  handleGroupByLanguage() {
-    this.setState(() => ({groupBy:'Language'}));
-    this.groupBy();
-  }
-  
-  render() {
-    const groupByArray = this.groupBy();
-    console.log('ejecutando render');
-    return (
-      <div>
-        <div className="filter-input">
-          <input type="text" onChange={this.handleFilter}/>
-        </div>
-        <div className="group-buttons">
-          <button disabled={this.state.groupBy === 'Continent'} onClick={this.handleGroupByContinent}>Order by Continent</button>
-          <button disabled={this.state.groupBy === 'Language'} onClick={this.handleGroupByLanguage}>Order by Language</button>
-        </div>
-        <div className='countries'>
-          {this.state.countries.length>0 ? <h2>Countries by {this.state.groupBy}</h2> : <p>no hay paises</p> }
-          
-          {groupByArray.map((item)=> {
-            return(
-              <div key={item}>
-                <h3>{item}</h3>
-                { this.state.countries.map((country) => {
-                // Si agrupamos por continentes
-                  if (country.continent.name === item) {
-                    return (
-                      <div className="country" key={country.code}>
-                        <h4> <span>{country.emoji}</span>{country.name}</h4> 
-                        {country.capital && <p>Capital: {country.capital}</p>}
-                        
-                        <p>Language: {country.languages[0].name}</p>
-
-                      </div>
-                    )
-                  } 
-                  // Agrupando por idioma
-                  else if (country.languages[0].name === item){
-                    return (
-                      <div className="country" key={country.code}>
-                        <h4> <span>{country.emoji}</span>{country.name}</h4>
-                        <p>More info</p>
-
-                      </div>
-                    )
-                  }
-                })}
-
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    )
-  }
-}
-
-export default Countries;
+export default Data;

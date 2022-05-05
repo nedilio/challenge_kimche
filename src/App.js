@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import Countries from "./Data";
+import Data from "./Data";
 
 const client = new ApolloClient({
   uri: "https://countries.trevorblades.com",
@@ -18,7 +18,7 @@ const App = () => (
           🚀
         </span>
       </h2>
-      <Countries />
+      <Data />
     </div>
   </ApolloProvider>
 );
