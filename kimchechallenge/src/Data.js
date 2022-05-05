@@ -23,7 +23,7 @@ const Countries = () => {
   } else if (error) {
     return <h1>Error</h1>
   }
-// Paso el resultado como props al componente Data para poder definir estados y manipular estados dependiendo de los filtros.
+  // Paso el resultado como props al componente Data para poder definir estados y manipular estados dependiendo de los filtros.
   return (
     <Data countries={data.countries}/>
   )
@@ -37,7 +37,7 @@ class Data extends React.Component {
     this.handleGroupByContinent = this.handleGroupByContinent.bind(this);
     this.handleGroupByLanguage = this.handleGroupByLanguage.bind(this);
 
-    // Estado inicial del componente
+    // Estado inicial del componente, paises a mostrar y Agrupar por defecto por continente.
     this.state = {
       countries: [],
       groupBy: 'Continent',
@@ -47,7 +47,10 @@ class Data extends React.Component {
   // Filtra por nombre de pais introducido en el input
   handleFilter(e) {
     const unfilteredCountries = this.props.countries;
+
+    // Caso especial de Antartica que no tiene idioma se asigna uno.
     unfilteredCountries[8].languages[0] = {name: 'English'};
+
     const filter = e.currentTarget.value.toLowerCase();
     if (filter) {
       this.setState(() => ({
@@ -72,8 +75,7 @@ class Data extends React.Component {
       return [...new Set(countries.map(country => country.continent.name))].sort(); 
     } 
     else if (this.state.groupBy === 'Language') {
-      console.log(countries);
-
+// Para agrupar por idiomas decidi usar solo el primero en la lista ya que hay paises que tienen varios idiomas
       return [...new Set(countries.map(country => country.languages[0].name))].sort(); 
     }
   }
@@ -99,8 +101,9 @@ class Data extends React.Component {
           <button disabled={this.state.groupBy === 'Continent'} onClick={this.handleGroupByContinent}>Order by Continent</button>
           <button disabled={this.state.groupBy === 'Language'} onClick={this.handleGroupByLanguage}>Order by Language</button>
         </div>
-        <div>
-          <h2>Countries by {this.state.filterBy}</h2>
+        <div className='countries'>
+          {this.state.countries.length>0 ? <h2>Countries by {this.state.groupBy}</h2> : <p>no hay paises</p> }
+          
           {groupByArray.map((item)=> {
             return(
               <div key={item}>

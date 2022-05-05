@@ -13,13 +13,13 @@ const App = () => (
   <ApolloProvider client={client}>
     <div>
       <h2>
-        My first Apollo app{" "}
+        Country Filter and Group{" "}
         <span role="img" aria-label="Rocket">
           🚀
         </span>
       </h2>
+      <Countries />
     </div>
-    <Countries />
   </ApolloProvider>
 );
 
