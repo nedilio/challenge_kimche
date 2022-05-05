@@ -2,11 +2,13 @@ import React from "react";
 import "./App.css";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import Countries from "./Data";
 
 const client = new ApolloClient({
-  uri: "https://48p1r2roz4.sse.codesandbox.io",
+  uri: "https://countries.trevorblades.com",
 });
 
+    
 const App = () => (
   <ApolloProvider client={client}>
     <div>
@@ -17,6 +19,8 @@ const App = () => (
         </span>
       </h2>
     </div>
+    <Countries />
   </ApolloProvider>
 );
+
 export default App;
