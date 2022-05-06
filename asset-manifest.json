@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/challenge_kimche/static/css/main.c7144104.chunk.css",
-    "main.js": "/challenge_kimche/static/js/main.584f14fc.chunk.js",
-    "main.js.map": "/challenge_kimche/static/js/main.584f14fc.chunk.js.map",
+    "main.css": "/challenge_kimche/static/css/main.0aeb6eef.chunk.css",
+    "main.js": "/challenge_kimche/static/js/main.4d538da9.chunk.js",
+    "main.js.map": "/challenge_kimche/static/js/main.4d538da9.chunk.js.map",
     "runtime-main.js": "/challenge_kimche/static/js/runtime-main.342828c2.js",
     "runtime-main.js.map": "/challenge_kimche/static/js/runtime-main.342828c2.js.map",
     "static/js/2.aa3f6145.chunk.js": "/challenge_kimche/static/js/2.aa3f6145.chunk.js",
     "static/js/2.aa3f6145.chunk.js.map": "/challenge_kimche/static/js/2.aa3f6145.chunk.js.map",
     "index.html": "/challenge_kimche/index.html",
-    "precache-manifest.a7113f3248b6e34aaad401731516e4c0.js": "/challenge_kimche/precache-manifest.a7113f3248b6e34aaad401731516e4c0.js",
+    "precache-manifest.6bcfb03083ea0f657005774a4267dba0.js": "/challenge_kimche/precache-manifest.6bcfb03083ea0f657005774a4267dba0.js",
     "service-worker.js": "/challenge_kimche/service-worker.js",
-    "static/css/main.c7144104.chunk.css.map": "/challenge_kimche/static/css/main.c7144104.chunk.css.map",
+    "static/css/main.0aeb6eef.chunk.css.map": "/challenge_kimche/static/css/main.0aeb6eef.chunk.css.map",
     "static/js/2.aa3f6145.chunk.js.LICENSE.txt": "/challenge_kimche/static/js/2.aa3f6145.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.342828c2.js",
     "static/js/2.aa3f6145.chunk.js",
-    "static/css/main.c7144104.chunk.css",
-    "static/js/main.584f14fc.chunk.js"
+    "static/css/main.0aeb6eef.chunk.css",
+    "static/js/main.4d538da9.chunk.js"
   ]
 }
