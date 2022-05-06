@@ -24,24 +24,30 @@ class Countries extends React.Component {
   
     // Filtra por nombre de pais introducido en el input
     handleFilter(e) {
-      const specialChar = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+      const specialChar = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~1234567890]/;
       const unfilteredCountries = this.props.countries;
   
       const filter = e.currentTarget.value.toLowerCase();
       if (specialChar.test(filter)) {
-        this.setState(() => ({countries: [], message: 'Special Characters not allowed'}))
+        this.setState(() => ({countries: [], message: 'Special Characters or numbers not allowed'}))
       } else
       if (filter) {
         this.setState(() => ({
           countries: unfilteredCountries.filter((pais) => {
             // Coincidencia exacta desde el inicio
+
             return pais.name.toLowerCase().match('^'+filter)
             
             //Coincidencia parcial en cualquier lugar del string, más flexible.
             // Ejemplo: si venezuela apareciera como Republica Bolivariana de Venezuela.
             // return pais.name.toLowerCase().indexOf(filter)>-1
+
           })
         }))
+        // Si no encontramos paises, mostramos mensaje
+        if (this.state.countries.length < 1) {
+          this.setState(() => ({message:'No countries found '}))
+        }
       } else {
         // Al borrar todas las letras del input limpia el state de paises filtrados
         this.setState(()=>({countries:[], message: 'Begin typing above to find countries'}));
