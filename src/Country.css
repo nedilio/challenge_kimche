@@ -5,3 +5,8 @@
 .country .flag {
     margin-right: 5px;
 }
+
+.lang-icon {
+    margin-right: 3px;
+    font-size: 1.2rem;
+}

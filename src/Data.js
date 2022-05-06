@@ -10,6 +10,7 @@ query countries {
       code
       name
       emoji
+      emojiU
       continent {name}
       languages {
         name
@@ -24,9 +25,9 @@ query countries {
 const Data = () => {
   const { loading, error, data } = useQuery(GET_COUNTRIES);
   if (loading) {
-    return <h1>Loading ...</h1>
+    return <h2>Loading ...</h2>
   } else if (error) {
-    return <h1>Error</h1>
+    return <h2>Error</h2>
   }
   
   // Caso especial de Antartica que no tiene idioma se asigna uno.
