@@ -78,22 +78,15 @@ class Countries extends React.Component {
             {/* Iterar por elementos del filtro */}
             {groupByArray.map((item)=> {
               return(
-                <div key={item}>
+                <div className="wrapper" key={item}>
                   <h3>{item}</h3>
-                  { this.state.countries.map((country) => {
-                  // Si agrupamos por continentes
-                    if (country.continent.name === item) {
-                      return (
-                        <Country key={country.code} country={country}/>
-                      )
-                    } 
-                    // Agrupando por idioma
-                    else if (country.languages[0].name === item){
-                      return (
-                        <Country key={country.code} country={country}/>
-                      )
+                    {/* Filter para saber cuales paises cumplen con el item de agrupar y luego map para renderizar cada pais */}
+                    { this.state.countries.filter((country) => {
+                      return (country.continent.name === item || country.languages[0].name ===item)}).map((country) => {
+                          return <Country key={country.code} country={country}/>
+                      })
                     }
-                  })}
+
                 </div>
               )
             })}
