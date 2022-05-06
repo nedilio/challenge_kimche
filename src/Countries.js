@@ -2,6 +2,9 @@ import React from "react";
 import Country from './Country';
 import FilterInput from "./FilterInput";
 import GroupBy from "./GroupBy";
+import { ArrowBarUp } from 'react-bootstrap-icons';
+
+import './Countries.css';
 
 class Countries extends React.Component {
     constructor(props) {
@@ -73,21 +76,22 @@ class Countries extends React.Component {
                 handleGroupByContinent={this.handleGroupByContinent}
             />
           <div className='countries'>
-            {this.state.countries.length>0 ? <h2>Countries by {this.state.groupBy}</h2> : <p>no hay paises</p> }
+            {this.state.countries.length>0 ? <h2>Showing countries by <strong>{this.state.groupBy}</strong></h2> : <p>Begin typing above to find countries <span><ArrowBarUp /></span></p> }
             
             {/* Iterar por elementos del filtro */}
             {groupByArray.map((item)=> {
               return(
-                <div className="wrapper" key={item}>
+                <section key={item} className="wrapper">
                   <h3>{item}</h3>
-                    {/* Filter para saber cuales paises cumplen con el item de agrupar y luego map para renderizar cada pais */}
-                    { this.state.countries.filter((country) => {
-                      return (country.continent.name === item || country.languages[0].name ===item)}).map((country) => {
-                          return <Country key={country.code} country={country}/>
-                      })
-                    }
-
-                </div>
+                    <div className="row">
+                        {/* Filter para saber cuales paises cumplen con el item de agrupar y luego map para renderizar cada pais */}
+                        { this.state.countries.filter((country) => {
+                        return (country.continent.name === item || country.languages[0].name ===item)}).map((country) => {
+                            return <Country key={country.code} country={country}/>
+                        })
+                        }
+                    </div>
+                </section>
               )
             })}
           </div>

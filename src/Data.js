@@ -11,7 +11,10 @@ query countries {
       name
       emoji
       continent {name}
-      languages {name}
+      languages {
+        name
+        code
+      }
       capital
     }
   }
@@ -27,7 +30,7 @@ const Data = () => {
   }
   
   // Caso especial de Antartica que no tiene idioma se asigna uno.
-  data.countries[8].languages[0] = {name: 'English'};
+  data.countries[8].languages[0] = {name: 'English', code:'EN'};
   
   // Paso el resultado como props al componente Data para poder 
   // definir estados y manipular estados dependiendo de los filtros.
