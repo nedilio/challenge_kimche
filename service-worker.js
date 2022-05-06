@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/challenge_kimche/precache-manifest.5621a54e8292b976cb763bb3fb22df56.js"
+  "/challenge_kimche/precache-manifest.c76ebb91f558480588013f88aac6a583.js"
 );
 
 self.addEventListener('message', (event) => {
