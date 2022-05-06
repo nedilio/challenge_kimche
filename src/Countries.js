@@ -18,14 +18,19 @@ class Countries extends React.Component {
       this.state = {
         countries: [],
         groupBy: 'Continent',
+        message: 'Begin typing above to find countries'
       }
     }
   
     // Filtra por nombre de pais introducido en el input
     handleFilter(e) {
+      const specialChar = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
       const unfilteredCountries = this.props.countries;
   
       const filter = e.currentTarget.value.toLowerCase();
+      if (specialChar.test(filter)) {
+        this.setState(() => ({countries: [], message: 'Special Characters not allowed'}))
+      } else
       if (filter) {
         this.setState(() => ({
           countries: unfilteredCountries.filter((pais) => {
@@ -39,7 +44,7 @@ class Countries extends React.Component {
         }))
       } else {
         // Al borrar todas las letras del input limpia el state de paises filtrados
-        this.setState(()=>({countries:[]}));
+        this.setState(()=>({countries:[], message: 'Begin typing above to find countries'}));
       }
     }
   
@@ -76,7 +81,7 @@ class Countries extends React.Component {
                 handleGroupByContinent={this.handleGroupByContinent}
             />
           <div className='countries'>
-            {this.state.countries.length>0 ? <h2>Showing countries by <strong>{this.state.groupBy}</strong></h2> : <p>Begin typing above to find countries <span><ArrowBarUp /></span></p> }
+            {this.state.countries.length>0 ? <h2>Showing countries by <strong>{this.state.groupBy}</strong></h2> : <p className={this.state.message === 'Special Characters not allowed' ? 'red' : null}>{this.state.message}<span><ArrowBarUp /></span></p> }
             
             {/* Iterar por elementos del filtro */}
             {groupByArray.map((item)=> {

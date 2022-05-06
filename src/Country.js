@@ -3,7 +3,6 @@ import './Country.css';
 import { PinMapFill, ChatTextFill } from "react-bootstrap-icons";
 
 const Country = (props) => {
-    console.log(props.country);
     return(
         <div className="country col-6 col-sm-6 col-md-4" key={props.country.code}>
             <div className="card">
