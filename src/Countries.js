@@ -18,7 +18,8 @@ class Countries extends React.Component {
       this.state = {
         countries: [],
         groupBy: 'Continent',
-        message: 'Begin typing above to find countries'
+        message: 'Begin typing above to find countries',
+        error: false
       }
     }
   
@@ -29,7 +30,7 @@ class Countries extends React.Component {
   
       const filter = e.currentTarget.value.toLowerCase();
       if (specialChar.test(filter)) {
-        this.setState(() => ({countries: [], message: 'Special Characters or numbers not allowed'}))
+        this.setState(() => ({countries: [], message: 'Special Characters or numbers not allowed', error: true}))
       } else
       if (filter) {
         this.setState(() => ({
@@ -46,11 +47,11 @@ class Countries extends React.Component {
         }))
         // Si no encontramos paises, mostramos mensaje
         if (this.state.countries.length < 1) {
-          this.setState(() => ({message:'No countries found '}))
+          this.setState(() => ({message:'No countries found ', error: false}))
         }
       } else {
         // Al borrar todas las letras del input limpia el state de paises filtrados
-        this.setState(()=>({countries:[], message: 'Begin typing above to find countries'}));
+        this.setState(()=>({countries:[], message: 'Begin typing above to find countries', error: false}));
       }
     }
   
@@ -87,7 +88,7 @@ class Countries extends React.Component {
                 handleGroupByContinent={this.handleGroupByContinent}
             />
           <div className='countries'>
-            {this.state.countries.length>0 ? <h2>Showing countries by <strong>{this.state.groupBy}</strong></h2> : <p className={this.state.message === 'Special Characters not allowed' ? 'red' : null}>{this.state.message}<span><ArrowBarUp /></span></p> }
+            {this.state.countries.length>0 ? <h2>Showing countries by <strong>{this.state.groupBy}</strong></h2> : <p className={this.state.error  ? 'red' : null}>{this.state.message}<span><ArrowBarUp /></span></p> }
             
             {/* Iterar por elementos del filtro */}
             {groupByArray.map((item)=> {
