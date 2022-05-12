@@ -8,24 +8,16 @@ import validator from 'validator';
 import './Countries.css';
 
 class Countries extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleFilter = this.handleFilter.bind(this);
-      this.groupBy = this.groupBy.bind(this);
-      this.handleGroupByContinent = this.handleGroupByContinent.bind(this);
-      this.handleGroupByLanguage = this.handleGroupByLanguage.bind(this);
-  
-      // Estado inicial del componente, paises a mostrar y Agrupar por defecto por continente.
-      this.state = {
-        countries: [],
-        groupBy: 'Continent',
-        message: 'Begin typing above to find countries',
-        error: false
-      }
-    }
+  // Estado inicial del componente, paises a mostrar y Agrupar por defecto por continente.
+  state = {
+    countries: [],
+    groupBy: 'Continent',
+    message: 'Begin typing above to find countries',
+    error: false
+  }
   
     // Filtra por nombre de pais introducido en el input
-    handleFilter(e) {
+    handleFilter = (e) => {
       const unfilteredCountries = this.props.countries;
       const filter = e.currentTarget.value.toLowerCase();
 
@@ -55,7 +47,7 @@ class Countries extends React.Component {
     }
   
     // Dependiendo del atributo para agrupar en el estado creamos un array con los diferentes items ya sea de continente o de idioma desde los paises ya filtrados
-    groupBy() {
+    groupBy = () => {
       const countries = this.state.countries;
       if (this.state.groupBy === 'Continent') {
         return [...new Set(countries.map(country => country.continent.name))].sort(); 
@@ -67,11 +59,11 @@ class Countries extends React.Component {
     }
 
   // Cambia el atributo a agrupar ya sea a continente o idioma haciendo click
-    handleGroupByContinent() {
+    handleGroupByContinent =() =>  {
       this.setState(() => ({groupBy:'Continent'}));
       this.groupBy();
     }
-    handleGroupByLanguage() {
+    handleGroupByLanguage = () =>  {
       this.setState(() => ({groupBy:'Language'}));
       this.groupBy();
     }
